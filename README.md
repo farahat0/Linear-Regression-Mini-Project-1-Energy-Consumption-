@@ -1,50 +1,38 @@
-Project Overview
-This project focuses on applying data mining techniques to predict building-level electricity consumption based on contextual attributes such as square footage, occupancy levels, and average temperatures. The core objective was to clean, preprocess, explore, and model the data using Linear Regression.
+# Energy Consumption Prediction: Linear Regression Mini-Project
 
-Steps Undertaken
-Data Loading & Initial Inspection: * Loaded the dataset using Pandas and evaluated the general info, data types, and non-null value counts to determine the cleaning strategy.
+## 📌 Overview
+This project applies data mining techniques to predict building electricity consumption based on features like square footage, occupancy, and temperature. The goal is to clean, explore, and model the data using Linear Regression.
 
-Identified the most relevant features influencing building electricity consumption.
+## 🛠️ Project Steps
 
-Data Cleaning & Formatting:
+* **1. Data Loading & Inspection**
+  * Loaded `energy_data.csv` using Pandas.
+  * Checked data types and missing values to plan the cleaning process.
 
-Extracted numeric values from string columns by removing ' kWh' from Energy_Consumption and 'm2' from SquareFootage, converting both to numeric types.
+* **2. Data Cleaning & Formatting**
+  * Removed text strings (like ' kWh' and 'm2') from numeric columns (`Energy_Consumption`, `SquareFootage`) and converted them to pure numbers.
+  * Cleaned up the `Neighborhood` column by removing extra spaces and standardizing the text.
+  * Standardized `Day_of_Week` entries (e.g., changing 'wed' to 'Wednesday').
+  * Fixed date formats for `Last_Maintenance_Date`.
 
-Standardized the Neighborhood column using regex to extract and strip whitespace.
+* **3. Handling Missing Values**
+  * Filled missing `Governorate` names logically based on the `Neighborhood` (e.g., mapping "Dokki" to "Giza").
+  * Estimated missing `Average_Temperature` values using the average temperature of the respective neighborhood.
 
-Normalized the Day_of_Week column by correcting mixed-case strings into standard day names (e.g., matching 'wed' to 'Wednesday').
+* **4. Feature Engineering & Outliers**
+  * Converted categorical data like `Building_Type` into numbers using one-hot encoding so the machine learning model can understand them.
+  * Removed extreme outliers, which made the mathematical relationship between temperature and energy consumption much clearer and more accurate.
 
-Converted the Last_Maintenance_Date to a standard datetime format.
+* **5. Data Exploration & Visualization**
+  * Discovered that Residential buildings vary the most in consumption, while Industrial buildings use the most energy on average.
+  * Created visual plots using Seaborn and Matplotlib to clearly show how building size affects energy use.
 
-Handling Missing Values:
+* **6. Machine Learning Model**
+  * Split the data into training and testing sets to properly evaluate performance.
+  * Built a **Linear Regression** model using scikit-learn to predict energy consumption.
+  * Evaluated the model's accuracy using Root Mean Squared Error (RMSE).
 
-Intelligently imputed missing Governorate values by mapping them to their corresponding Neighborhood (e.g., mapping "Dokki" to "Giza" and "Smouha" to "Alexandria").
-
-Evaluated missing Average_Temperature values by analyzing the mean and standard deviation grouped by neighborhood.
-
-Feature Engineering & Outlier Handling:
-
-Applied one-hot encoding to categorical features like Building_Type (Commercial, Industrial, Residential) to prepare them for mathematical operations.
-
-Removed outliers to significantly raise the correlation between average temperature and energy consumption.
-
-Exploratory Data Analysis (EDA) & Visualization:
-
-Analyzed consumption distributions, discovering that Residential buildings had the widest distribution and Industrial buildings had the highest average consumption.
-
-Visualized the relationship between building size (SquareFootage) and energy consumption using scatter plots and Seaborn regression plots.
-
-Computed the mathematical correlation between specific features and the target variable.
-
-Model Preparation:
-
-Utilized scikit-learn to prepare the data for training using train_test_split.
-
-Set up a LinearRegression model to predict consumption, utilizing Root Mean Squared Error (RMSE) as the primary evaluation metric.
-
-Technologies Used
-Python: Pandas, NumPy
-
-Visualization: Matplotlib, Seaborn
-
-Machine Learning: Scikit-Learn
+## 🚀 Technologies Used
+* **Data Processing:** Python, Pandas, NumPy
+* **Visualization:** Matplotlib, Seaborn
+* **Machine Learning:** Scikit-Learn
